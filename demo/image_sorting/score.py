@@ -13,7 +13,7 @@ EXAMPLE:
     python score.py --images "pattern/to/images/*.jpg"
 """
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import cv2
 import numpy as np
 import cPickle as pickle
@@ -44,4 +44,4 @@ if __name__ == '__main__':
             encodings = sess.run(embedding, {feed_node: img[None, :, :, :]})
             scores = np.linalg.norm(encodings, axis=1)
 
-            print fn, scores
+            print(fn, scores)
