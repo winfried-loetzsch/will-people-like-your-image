@@ -35,6 +35,7 @@ if __name__ == '__main__':
         embedding = tf.get_default_graph().get_tensor_by_name("tower_0/encodings:0")
 
         model_pytorch = torch.load("../../training/ae_model_pytorch.pt")
+        print(model_pytorch)
 
         image_collection = []
         for fn in glob.glob(args.images):

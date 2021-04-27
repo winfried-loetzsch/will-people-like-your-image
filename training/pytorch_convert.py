@@ -181,18 +181,22 @@ if __name__ == '__main__':
                                       f"resnet_v1_50/block{block}/unit_{unit + 1}/bottleneck_v1/conv{bn_idx}/BatchNorm")
 
         # fix conv strides
-        model.layer1[2].downsample = torch.nn.MaxPool2d(kernel_size=(1, 1), stride=(2, 2), padding=0, ceil_mode=True)
+        model.layer1[2].downsample = torch.nn.MaxPool2d(kernel_size=(1, 1), stride=(2, 2), padding=0, ceil_mode=False)
         model.layer1[2].conv2.stride = (2, 2)
         model.layer2[0].conv2.stride = (1, 1)
         model.layer2[0].downsample[0].stride = (1, 1)
         model.layer2[3].conv2.stride = (2, 2)
-        model.layer2[3].downsample = torch.nn.MaxPool2d(kernel_size=(1, 1), stride=(2, 2), padding=0, ceil_mode=True)
+        model.layer2[3].downsample = torch.nn.MaxPool2d(kernel_size=(1, 1), stride=(2, 2), padding=0, ceil_mode=False)
         model.layer3[0].conv2.stride = (1, 1)
         model.layer3[0].downsample[0].stride = (1, 1)
         model.layer3[5].conv2.stride = (2, 2)
-        model.layer3[5].downsample = torch.nn.MaxPool2d(kernel_size=(1, 1), stride=(2, 2), padding=0, ceil_mode=True)
+        model.layer3[5].downsample = torch.nn.MaxPool2d(kernel_size=(1, 1), stride=(2, 2), padding=0, ceil_mode=False)
         model.layer4[0].conv2.stride = (1, 1)
         model.layer4[0].downsample[0].stride = (1, 1)
         # end fix
 
+        print(model)
+        model.eval()
+
+        model(torch.rand(1, 3, 224, 224))
         torch.save(model, "ae_model_pytorch.pt")
