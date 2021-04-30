@@ -1,19 +1,7 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-# Authors: Katharina Schwarz
-#          Patrick Wieschollek <mail@patwie.com>
-
 """
-Will People Like Your Image?
-
-tested with TensorFlow 1.1.0-rc1 (git rev-parse HEAD 45115c0a985815feef3a97a13d6b082997b38e5d) and OpenCV 3.1.0
-
-EXAMPLE:
-
-    python score.py --images "pattern/to/images/*.jpg"
+This file converts the tensorflow model to PyTorch.
 """
 import re
-
 import numpy as np
 import tensorflow.compat.v1 as tf
 import torch
@@ -198,5 +186,6 @@ if __name__ == '__main__':
         print(model)
         model.eval()
 
+        # test if model can be executed
         model(torch.rand(1, 3, 224, 224))
         torch.save(model, "ae_model_pytorch.pt")
